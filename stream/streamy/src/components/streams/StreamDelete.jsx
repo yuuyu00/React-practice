@@ -1,28 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import Modal from '../Modal';
 import { fetchStream, deleteStream } from '../../actions';
-import history from '../../history';
 
 class StreamDelete extends React.Component {
   componentDidMount() {
-    this.props.fetchStream(this.props.match.params.id);
+    this.props.fetchStream(this.props.id);
   }
 
+  onSubmit(id) {
+    this.props.deleteStream(id);
+    this.props.onDismiss();
+  }
+
+  handleKeypress = e => {
+    if (e.key === 'Enter') {
+      this.onSubmit(this.props.id);
+    }
+  };
+
   actions() {
-    const { id } = this.props.match.params;
     return (
       <>
         <button
-          onClick={() => this.props.deleteStream(id)}
+          onClick={() => this.onSubmit(this.props.id)}
           className="ui button negative"
         >
           Delete
         </button>
-        <Link to="/" className="ui button">
+        <button onClick={() => this.props.onDismiss()} className="ui button">
           Cancel
-        </Link>
+        </button>
       </>
     );
   }
@@ -30,6 +38,7 @@ class StreamDelete extends React.Component {
   render() {
     return (
       <Modal
+        onKeyDown={() => this.onSubmit(this.props.id)}
         title="Delete Stream"
         content={`Are you sure you want to delete this stream ${
           this.props.stream !== undefined
@@ -37,14 +46,14 @@ class StreamDelete extends React.Component {
             : ''
         }`}
         actions={this.actions()}
-        onDismiss={() => history.push('/')}
+        onDismiss={() => this.props.onDismiss()}
       />
     );
   }
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { stream: state.streams[ownProps.match.params.id] };
+  return { stream: state.streams[ownProps.id] };
 };
 
 export default connect(

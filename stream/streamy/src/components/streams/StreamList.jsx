@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchStreams } from '../../actions';
-import history from '../../history';
+import { fetchStreams, deleteStream } from '../../actions';
+import StreamDelete from './StreamDelete';
 
 class StreamList extends React.Component {
   state = {};
@@ -21,6 +21,8 @@ class StreamList extends React.Component {
         </div>
       );
     }
+
+    return null;
   }
 
   renderAdmin(stream) {
@@ -30,12 +32,14 @@ class StreamList extends React.Component {
           <Link to={`/streams/edit/${stream.id}`} className="ui button primary">
             Edit
           </Link>
-          <Link
-            to={`/streams/delete/${stream.id}`}
+          <button
+            onClick={() =>
+              this.setState({ isModalShown: true, modalId: stream.id })
+            }
             className="ui button negative"
           >
             Delete
-          </Link>
+          </button>
         </div>
       );
     }
@@ -66,6 +70,12 @@ class StreamList extends React.Component {
         <h2>Streams</h2>
         <div className="ui celles list">{this.renderList()}</div>
         {this.renderCreate()}
+        {this.state.isModalShown && (
+          <StreamDelete
+            id={this.state.modalId}
+            onDismiss={() => this.setState({ isModalShown: false })}
+          />
+        )}
       </div>
     );
   }
@@ -80,5 +90,5 @@ const mapStateToProps = state => {
 
 export default connect(
   mapStateToProps,
-  { fetchStreams },
+  { fetchStreams, deleteStream },
 )(StreamList);
