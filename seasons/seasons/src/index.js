@@ -41,6 +41,5 @@ class App extends React.Component {
 
     return <Spinner message="Please accept location request" />;
   }
-
-
+}
 ReactDOM.render(<App />, document.querySelector("#root"));
