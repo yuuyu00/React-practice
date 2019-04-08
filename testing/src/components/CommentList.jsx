@@ -11,12 +11,17 @@ const CommentList = props => {
       </ul>
     );
   };
-  return renderComments();
+  return (
+    <div>
+      <h4>CommentList</h4>
+      <ul>{renderComments()}</ul>
+    </div>
+  );
 };
 
 const mapStateToProps = state => {
   return {
-    comments: state.comments,
+    comments: state.comments
   };
 };
 

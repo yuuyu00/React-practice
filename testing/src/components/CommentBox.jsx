@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { addComment, fetchComments } from 'actions';
+import { addComment, fetchComments } from 'actions/index.action';
 
 const CommentBox = props => {
   const [comment, setComment] = useState('');
@@ -14,6 +14,16 @@ const CommentBox = props => {
     e.preventDefault();
     props.addComment(comment);
     setComment('');
+  };
+
+  useEffect(() => {
+    shouldNavigateAway();
+  });
+
+  const shouldNavigateAway = () => {
+    if (!props.auth) {
+      props.history.push('/');
+    }
   };
 
   return (
@@ -39,7 +49,13 @@ const CommentBox = props => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    auth: state.auth
+  };
+};
+
 export default connect(
-  null,
-  { addComment, fetchComments },
+  mapStateToProps,
+  { addComment, fetchComments }
 )(CommentBox);
