@@ -1,4 +1,4 @@
-import { CHANGE_AUTH } from 'actions/types';
+import { CHANGE_AUTH } from 'actions/types.action';
 
 export default (state = false, action) => {
   switch (action.type) {

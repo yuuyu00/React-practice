@@ -1,4 +1,4 @@
-import { ADD_COMMENT, FETCH_COMMENTS } from 'actions/types';
+import { ADD_COMMENT, FETCH_COMMENTS } from 'actions/types.action';
 
 export default (state = [], action) => {
   switch (action.type) {

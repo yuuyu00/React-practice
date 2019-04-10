@@ -1,10 +1,10 @@
-import commentsReducer from 'reducers/comments';
-import { ADD_COMMENT } from 'actions/types';
+import commentsReducer from 'reducers/comments.reducer';
+import { ADD_COMMENT } from 'actions/types.action';
 
 it('handle actions of type SAVE_COMMENT', () => {
   const actions = {
     type: ADD_COMMENT,
-    payload: 'New Comment',
+    payload: 'New Comment'
   };
 
   const newState = commentsReducer([], actions);

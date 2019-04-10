@@ -1,5 +1,5 @@
 import { addComment } from 'actions';
-import { ADD_COMMENT } from 'actions/types';
+import { ADD_COMMENT } from 'actions/types.action';
 
 describe('addComment', () => {
   it('has the correct type', () => {

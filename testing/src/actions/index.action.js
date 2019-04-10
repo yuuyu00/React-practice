@@ -1,4 +1,4 @@
-import { ADD_COMMENT, FETCH_COMMENTS, CHANGE_AUTH } from 'actions/types';
+import { ADD_COMMENT, FETCH_COMMENTS, CHANGE_AUTH } from 'actions/types.action';
 import axios from 'axios';
 
 export const addComment = comment => {
